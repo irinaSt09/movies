@@ -1,0 +1,15 @@
+spring:
+  graphql:
+    graphiql.enabled=true
+    graphiql.path=/graphiql
+    schema.printer.enabled=true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: movies
+    password: 1234
+    url: jdbc:mysql://localhost:3306/movies?createDatabaseIfNotExist=true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
