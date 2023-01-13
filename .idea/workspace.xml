@@ -4,11 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fca51ff7-ffef-4f87-9b88-cce09638ed43" name="Changes" comment="" />
+    <list default="true" id="fca51ff7-ffef-4f87-9b88-cce09638ed43" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/movies-fe/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/src/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/movies-fe/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/moviesBE/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/moviesBE/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,7 +57,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/varbanov/uni/piss/movies",
+    "last_opened_file_path": "C:/Users/yuli/Desktop/movies/moviesBE",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,21 +79,6 @@
     <option name="myCommands">
       <command value="mvn tree" />
     </option>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="movies" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="movies" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
