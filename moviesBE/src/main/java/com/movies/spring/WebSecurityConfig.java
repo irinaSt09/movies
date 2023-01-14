@@ -23,6 +23,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/movies", "/movies/**").hasAnyAuthority(USER)
+                .requestMatchers(HttpMethod.GET, "/watchlist", "/watchlist/**").hasAnyAuthority(USER)
+                .requestMatchers(HttpMethod.POST, "/watchlist", "/watchlist/**").hasAnyAuthority(USER)
+                .requestMatchers(HttpMethod.PUT, "/watchlist", "/watchlist/**").hasAnyAuthority(USER)
+                .requestMatchers(HttpMethod.DELETE, "/watchlist", "/watchlist/**").hasAnyAuthority(USER)
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/", "/error", "/csrf").permitAll()
                 .anyRequest().authenticated()

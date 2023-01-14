@@ -1,4 +1,4 @@
 package com.movies.controller.entity;
 
-public record SignUpRequest(String email, String password) {
+public record SignUpRequest(String username, String password) {
 }

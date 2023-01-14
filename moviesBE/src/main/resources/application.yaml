@@ -9,11 +9,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: movies
     password: 1234
-    url: jdbc:mysql://localhost:3306/movies?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/movies
   jpa:
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
-        ddl-auto: create
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
 app:

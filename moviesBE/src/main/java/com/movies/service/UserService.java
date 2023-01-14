@@ -24,13 +24,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public boolean hasUserWithEmail(String email) {
-        return userRepository.existsByEmail(email);
+    public boolean hasUserWithUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 
-    public User validateAndGetUserByUsername(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", email)));
+    public User validateAndGetUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s not found", username)));
     }
 
     public User register(User user) {
@@ -42,8 +42,8 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public Optional<User> validUsernameAndPassword(String email, String password) {
-        return userRepository.findByEmail(email)
+    public Optional<User> validUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsername(username)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()));
     }
 }

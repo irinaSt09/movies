@@ -18,8 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
-        User user = userService.validateAndGetUserByUsername(email);
+    public UserDetails loadUserByUsername(String username) {
+        User user = userService.validateAndGetUserByUsername(username);
         return new CustomUserDetails(user, Collections.singletonList(new SimpleGrantedAuthority(user.getRole())));
     }
 }
