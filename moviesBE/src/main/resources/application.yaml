@@ -13,5 +13,9 @@ spring:
   jpa:
     properties:
       hibernate:
+        ddl-auto: create
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+app:
+  cors:
+    allowed-origins: http://localhost:3000
