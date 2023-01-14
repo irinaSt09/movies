@@ -1,7 +1,9 @@
 spring:
   graphql:
-    graphiql.enabled: true
-    graphiql.path: /graphiql
+    graphiql:
+      enabled: true
+      path: /graphiql
+    servlet.corsEnabled: true
     schema.printer.enabled: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
