@@ -1,8 +1,8 @@
 spring:
   graphql:
-    graphiql.enabled=true
-    graphiql.path=/graphiql
-    schema.printer.enabled=true
+    graphiql.enabled: true
+    graphiql.path: /graphiql
+    schema.printer.enabled: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: movies
