@@ -10,6 +10,7 @@ import java.util.List;
 @Component
 public class MovieService {
 
+    private static final String LANG = "en-US";
     private final TmdbApi tmdbApi;
 
     public MovieService(TmdbApi tmdbApi) {
@@ -32,5 +33,9 @@ public class MovieService {
         }
 
         return list;
+    }
+
+    public MovieDb getMovie(Integer id){
+        return tmdbApi.getMovies().getMovie(id,LANG);
     }
 }

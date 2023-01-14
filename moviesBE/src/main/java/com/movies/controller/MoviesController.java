@@ -2,6 +2,7 @@ package com.movies.controller;
 
 import com.movies.service.MovieService;
 import info.movito.themoviedbapi.model.MovieDb;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,5 +27,10 @@ public class MoviesController {
     @QueryMapping
     public List<MovieDb> allPopularMovies() {
         return movieService.getAllPopularMovies();
+    }
+
+    @QueryMapping
+    public MovieDb getMovie(@Argument Integer id){
+        return movieService.getMovie(id);
     }
 }
