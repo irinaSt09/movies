@@ -142,9 +142,10 @@ export default function App() {
 							<div class="genre">Popular</div>
 						</a> */}
 						{
-							genres.map(genre => {
+							genres.map((genre, index) => {
 								return (
 									<a
+										key={index}
 										className={`category-link ${genre.id == currentSelectedGenreId && "current"}`}
 										href="#a"
 										onClick={e => handleGenreFilterChange(e, genre.id)}
@@ -183,7 +184,7 @@ export default function App() {
 						<div class="item-container">
 							{
 								movies.map((movie, index) => {
-									return <a className={`item link movies m${index}`} id={movie.id} onClick={e => handleMovieClick(e, movie.id)} href='#' >
+									return <a key={index} className={`item link movies m${index}`} id={movie.id} onClick={e => handleMovieClick(e, movie.id)} href='#' >
 										<img src={movie.posterUrl || "https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png?w=681&h=383&crop=1"} class='image' />
 										<div class='item-inner'>
 											<h2 class='item-title'>{movie.title}</h2>
