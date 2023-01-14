@@ -9,47 +9,16 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <!-- <div onclick="fetchEntities()">TEST HERE</div> -->
-
     <div id="root"></div>
   </body>
 </html>
 
 
 
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
 
 
 <script>
-
-// function fetchEntities() {
-//   const query = `
-//  query {
-// 	popularMovies{
-//  	  id,
-//     title,
-//     production_countries {
-//       iso_3166_1
-//       name
-//     }
-// 	}
-// }
-//   `;
-//   fetch("http://localhost:8080/graphql", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json"
-//     },
-//     body: JSON.stringify({query})
-//   }).then(res => {
-//     const data = res.json();
-//     console.log(data);
-//   });
-// }
-
-
-  
 //   var next = 1;
 // var nextTV = 1;
 
@@ -360,7 +329,7 @@
 //         genre = data.genres[0].name;
 //       }
 //       $(".item-container").prepend(
-//         "<div class='overview'><div class='movie-container'><div class='movie-inner'><div class='movie-content'><div class='movie-poster'><img class='movie-img' src=" +
+//         "<div class='overview'><div class='movie-container'><div class='movieInner'><div class='movieContent'><div class='moviePoster'><img class='movieImg' src=" +
 //           poster +
 //           "></div><div class='movie-data'><div class='movie-info'><div class='movie-head'><h1 class='movie-title'>" +
 //           title +
@@ -518,7 +487,7 @@
 //     }
 //     var backdrop = backgroundPaths + data.backdrop_path;
 //     $(".item-container").prepend(
-//       "<div class='overview'><div class='movie-container'><div class='movie-inner'><div class='movie-content'><div class='movie-poster'><img class='movie-img' src=" +
+//       "<div class='overview'><div class='movie-container'><div class='movieInner'><div class='movieContent'><div class='moviePoster'><img class='movieImg' src=" +
 //         poster +
 //         "></div><div class='movie-data'><div class='movie-info'><div class='movie-head'><h1 class='movie-title'>" +
 //         title +

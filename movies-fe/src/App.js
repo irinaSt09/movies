@@ -1,33 +1,60 @@
-import { useState } from "react";
-import "./App.css";
+import { useState, useEffect } from "react";
+import styles from "./App.module.css";
 import { gql, useQuery } from '@apollo/client';
 
 
 
 export default function App() {
 
-	// 	const GET_POPULAR_MOVIES = gql`
-	// 	query a {
-	// 		popularMovies{
-	// 		   id,
-	// 		title,
-	// 		production_countries {
-	// 		  iso_3166_1
-	// 		  name
+	const GET_POPULAR_MOVIES = gql`
+		{
+			popularMovies{
+				id,
+				title,
+				vote_average,
+				poster_path
+			}
+		}
+	`;
+
+	// 	const GET_MOVIE_BY_ID = gql`
+	// 	{
+	// 		getMovie(id: ${selectedMovieId}){
+	// 		  id,
+	// 		  title,
+	// 		  poster_path
+	// 		  vote_average
+	// 		  overview
+	// 		  popularity
+	// 		  poster_path
+	// 		  release_date
+	// 		  revenue
+	// 		  runtime
+	// 		  status
+	// 		  tagline
+	// 		  title
+	// 		  video
 	// 		}
-	// 		}
-	// 	}
+	// 	  }
 	// `;
 
-	// const { loading, error, data } = useQuery(GET_POPULAR_MOVIES);
+	const { loading, error, data } = useQuery(GET_POPULAR_MOVIES);
 
-	// if (loading) return <p>Loading...</p>;
-	// if (error) return <p>Error : {error.message}</p>;
-	// if(data) {
-	// 	console.log(data);
-	// 	return <p>DATAAAA LOOOK AT THE CONSOLE</p>;
-	// }
+	// const [genres, setGenres] = useState([movie]);
+	const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState(3);
+	const [searchText, setSearchText] = useState("");
+	const [movies, setMovies] = useState([]);
+	const [selectedMovieId, setSelectedMovieId] = useState();
+	const [selectedMovie, setSelectedMovie] = useState();
 
+	useEffect(() => {
+		if (loading === false && data) {
+			setMovies(data.popularMovies);
+		}
+	}, [loading, data]);
+
+	if (loading) return console.log('Loading...');
+	if (error) console.log(`Error! ${error.message}`);
 
 	const genreTopRated = {
 		id: 1,
@@ -47,9 +74,6 @@ export default function App() {
 	// ...get more from graphql query
 
 
-	// const [genres, setGenres] = useState([movie]);
-	const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState(3);
-	const [searchText, setSearchText] = useState("");
 
 	const genres = [genreTopRated, genrePopularity, genreSomethingElse];
 	// setGenres([movie]);
@@ -70,6 +94,7 @@ export default function App() {
 
 	const handleMovieClick = (event, movieId) => {
 		event.preventDefault();
+
 		console.log("Show movie info test");
 		//show movieInfo on screen as a single card
 	}
@@ -81,9 +106,6 @@ export default function App() {
 		production_countries: null,
 		rating: "6.9"
 	};
-
-	const movies = [pussInBootsMovie]; //move to state, get movies with graphql query
-
 
 
 	//////////////////// Jquery shit
@@ -109,31 +131,23 @@ export default function App() {
 	//////////////////// Jquery shit
 	//////////////////// Jquery shit
 
-
-
-
-
-
-
-
-
 	return (
 		<>
-			<i title="Go to top" onclick="topFunction()" id="myBtn" class="fa fa-arrow-up" aria-hidden="true"></i>
-			<div class="container main">
-				<div class="sidebar">
-					<div class="sidebar-container">
+			<i title="Go to top" onclick="topFunction()" id="myBtn" className="fa fa-arrow-up" aria-hidden="true"></i>
+			<div className={`${styles.container} ${styles.main}`}>
+				<div className={styles.sidebar}>
+					<div className={styles.sidebarContainer}>
 						<a
-							class="logo-link"
+							className={styles.logoLink}
 							href="#a"
 							onclick="sortMovies('popularity')"
 						>
 							<img
 								src="https://i.imgur.com/AYldSBG.png"
-								class="logo-image"
+								className={styles.logoImage}
 							/>
 						</a>
-						<h2 class="title-genre">Discover</h2>
+						<h2 className={styles.titleGenre}>Discover</h2>
 						{/* <a
 							class="category-link current"
 							href="#a"
@@ -146,12 +160,12 @@ export default function App() {
 								return (
 									<a
 										key={index}
-										className={`category-link ${genre.id == currentSelectedGenreId && "current"}`}
+										className={`${styles.categoryLink} ${genre.id == currentSelectedGenreId && styles.current}`}
 										href="#a"
 										onClick={e => handleGenreFilterChange(e, genre.id)}
 									// onclick="sortMovies('rating')" //genreId
 									>
-										<div class="genre">{genre.name}</div>
+										<div className={styles.genre}>{genre.name}</div>
 									</a>
 								);
 							})
@@ -163,34 +177,35 @@ export default function App() {
 
 
 
-				<div class="search">
-					<form class="search-form"><button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+				<div className={styles.search}>
+					<form className={styles.searchForm}><button type="submit" className={styles.searchButton}><i className="fa fa-search"></i></button>
 						<input id="search" onChange={e => handleSearchTextChange(e)}
 							// onKeyPress="return checkSubmit(event)"
 							type="search"
-							placeholder="&nbsp;Search for a movie..." class="search-input" value={searchText} />
+							placeholder="&nbsp;Search for a movie..." className={styles.searchInput} value={searchText} />
 					</form>
 				</div>
 
 
 
 
-				<div class="content">
-					<div class="inner-container">
-						<div class="titles">
+				<div className={styles.content}>
+					<div className={styles.innerContainer}>
+						<div className={styles.titles}>
 							<h1>Popular</h1>
 							<h2>movies</h2>
 						</div>
-						<div class="item-container">
+						<div className={styles.itemContainer}>
 							{
-								movies.map((movie, index) => {
-									return <a key={index} className={`item link movies m${index}`} id={movie.id} onClick={e => handleMovieClick(e, movie.id)} href='#' >
-										<img src={movie.posterUrl || "https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png?w=681&h=383&crop=1"} class='image' />
-										<div class='item-inner'>
-											<h2 class='item-title'>{movie.title}</h2>
-											<span class='rating'>
+								movies?.map((movie, index) => {
+									if (!movie) return;
+									return <a key={index} className={`${styles.item} ${styles.link} ${styles.movies} m${index}`} id={movie.id} onClick={e => handleMovieClick(e, movie.id)} href='#' >
+										<img src={movie.poster_path || "https://www.lexingtonvenue.com/media/poster-placeholder.jpg"} className={styles.image} />
+										<div className={styles.itemInner}>
+											<h2 className={styles.itemTitle}>{movie.title}</h2>
+											<span className={styles.rating}>
 												<i class='fa fa-star' aria-hidden='true'>
-												</i>{movie.rating || "N/A"}
+												</i>{movie.vote_average || "N/A"}
 											</span>
 										</div>
 									</a>
