@@ -1,5 +1,6 @@
 package com.movies.spring;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import info.movito.themoviedbapi.TmdbApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -35,5 +36,10 @@ public class Beans {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper om(){
+        return new ObjectMapper();
     }
 }

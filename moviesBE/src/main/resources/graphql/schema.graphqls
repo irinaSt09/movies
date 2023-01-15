@@ -7,43 +7,43 @@ type Query {
     discover(sortBy: Sort!, minimumRatingCount: Int, genres: [Int], year: Int, includeAdult: Boolean): [MovieDb]
 }
 
-type SpokenLanguages { iso_639_1: String name: String }
+type SpokenLanguages { isoCode: String name: String }
 
-type ProductionCountries { iso_3166_1: String name: String }
+type ProductionCountries { isoCode: String name: String }
 
 type ProductionCompanies { id: Int
-    logo_path: String
+    logoPath: String
     name: String
-    origin_country: String }
+    originCountry: String }
 
 type Genres { id: Int name: String }
 
 type MovieDb
 {
     adult: Boolean
-    backdrop_path: String
-    belongs_to_collection: String
+    backdropPath: String
+    belongsToCollection: String
     budget: Float
     homepage: String
     id: Int
-    imdb_id: String
-    original_language: String
-    original_title: String
+    imdbId: String
+    originalLanguage: String
+    originalTitle: String
     overview: String
     popularity: Float
-    poster_path: String
-    release_date: String
+    posterPath: String
+    releaseDate: String
     revenue: Int
     runtime: Int
     status: String
     tagline: String
     title: String
     video: Boolean
-    vote_average: Float
-    vote_count: Int
-    spoken_languages: [SpokenLanguages ]
-    production_countries: [ProductionCountries ]
-    production_companies: [ProductionCompanies ]
+    voteAverage: Float
+    voteCount: Int
+    spokenLanguages: [SpokenLanguages ]
+    productionCountries: [ProductionCountries ]
+    productionCompanies: [ProductionCompanies ]
     genres: [Genres ]
 }
 
