@@ -3,6 +3,8 @@ type Query {
     allPopularMovies: [MovieDb]
     getMovie(id: Int): MovieDb
     searchMoviesByTitle(title: String): [MovieDb]
+    getAllGenres: [Genres]
+    discover(sortBy: Sort!, minimumRatingCount: Int, genres: [Int], year: Int, includeAdult: Boolean): [MovieDb]
 }
 
 type SpokenLanguages { iso_639_1: String name: String }
@@ -43,4 +45,13 @@ type MovieDb
     production_countries: [ProductionCountries ]
     production_companies: [ProductionCompanies ]
     genres: [Genres ]
+}
+
+enum Sort {
+    POPULARITY_ASC,
+    POPULARITY_DESC,
+    RELEASE_DATE_ASC,
+    RELEASE_DATE_DESC,
+    RATING_ASC,
+    RATING_DESC,
 }

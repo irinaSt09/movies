@@ -1,6 +1,8 @@
 package com.movies.controller;
 
+import com.movies.entity.Sort;
 import com.movies.service.MovieService;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -35,5 +37,15 @@ public class MoviesController {
     @QueryMapping
     public List<MovieDb> searchMoviesByTitle(@Argument String title) {
         return movieService.searchMoviesByTitle(title);
+    }
+
+    @QueryMapping
+    List<Genre> getAllGenres() {
+        return movieService.getAllGenres();
+    }
+
+    @QueryMapping
+    List<MovieDb> discover(@Argument Sort sortBy, @Argument Integer minimumRatingCount, @Argument List<Integer> genres, @Argument Integer year, @Argument Boolean includeAdult) {
+        return movieService.discover(sortBy, minimumRatingCount, genres, year, includeAdult);
     }
 }
