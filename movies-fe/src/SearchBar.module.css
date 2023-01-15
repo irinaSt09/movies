@@ -64,6 +64,7 @@
 }
 
 .searchButton {
+    margin-right: 12px;
     line-height: 1;
     pointer-events: none;
     cursor: none;
