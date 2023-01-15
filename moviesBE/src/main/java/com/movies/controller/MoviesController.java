@@ -28,7 +28,12 @@ public class MoviesController {
     }
 
     @QueryMapping
-    public MovieDb getMovie(@Argument Integer id){
+    public MovieDb getMovie(@Argument Integer id) {
         return movieService.getMovie(id);
+    }
+
+    @QueryMapping
+    public List<MovieDb> searchMoviesByTitle(@Argument String title) {
+        return movieService.searchMoviesByTitle(title);
     }
 }

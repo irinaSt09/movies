@@ -2,6 +2,7 @@ type Query {
     popularMovies: [MovieDb]
     allPopularMovies: [MovieDb]
     getMovie(id: Int): MovieDb
+    searchMoviesByTitle(title: String): [MovieDb]
 }
 
 type SpokenLanguages { iso_639_1: String name: String }
