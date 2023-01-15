@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./App.module.css";
 import { gql, useQuery } from '@apollo/client';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -38,6 +39,9 @@ export default function App() {
 	// 	  }
 	// `;
 
+	const navigate = useNavigate();
+
+	
 	const { loading, error, data } = useQuery(GET_POPULAR_MOVIES);
 
 	// const [genres, setGenres] = useState([movie]);
@@ -54,7 +58,14 @@ export default function App() {
 	}, [loading, data]);
 
 	if (loading) return console.log('Loading...');
-	if (error) console.log(`Error! ${error.message}`);
+	if (error) {
+		if(error?.networkError?.response?.status == 401) {
+			navigate("/login");
+		}
+		else {
+			console.log(error);
+		}
+	}
 
 	const genreTopRated = {
 		id: 1,
