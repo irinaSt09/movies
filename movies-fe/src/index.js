@@ -5,20 +5,22 @@ import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import {
     createBrowserRouter,
+    Outlet,
     RouterProvider,
 } from "react-router-dom";
 import ErrorPage from './ErrorPage';
 import LoginPage from './LoginPage';
+import SearchResults from './SearchResults';
+import MovieFullPage from './MovieFullPage';
+import PopularMovies from './PopularMovies';
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:8080/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
-    // get the authentication token from local storage if it exists
     const username = localStorage.getItem('username');
     const password = localStorage.getItem('password');
-    // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
@@ -36,6 +38,23 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <PopularMovies />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "/search/:searchText",
+                element: <SearchResults />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "/movie/:movieId",
+                element: <MovieFullPage />,
+                errorElement: <ErrorPage />
+            }
+        ],
         errorElement: <ErrorPage />
     },
     {

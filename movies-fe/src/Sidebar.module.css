@@ -1,0 +1,106 @@
+.sidebarContainer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 25rem;
+    padding: 2rem;
+    margin-top: 4rem;
+    color: var(--color-primary-dark);
+    border-right: 1px solid var(--border-color);
+}
+
+@media only screen and (max-width: 80em) {
+    .sidebar {
+        display: none;
+    }
+}
+
+.logoLink {
+    width: 100%;
+    height: 18rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    margin-bottom: 2rem;
+}
+
+.logoImage {
+    max-width: 75%;
+}
+
+.genre {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1;
+    opacity: 0.6;
+    color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
+    border: 1px solid transparent;
+    border-radius: 2rem;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: all 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.genre:hover {
+    border: 1px solid;
+}
+
+.titleGenre {
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    -webkit-letter-spacing: -0.5px;
+    -moz-letter-spacing: -0.5px;
+    -ms-letter-spacing: -0.5px;
+    letter-spacing: -0.5px;
+    margin: 0 0 1rem 1rem;
+}
+
+.titleGenre:not(:first-child) {
+    margin-top: 4rem;
+}
+
+.categoryLink {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    display: block;
+    outline: none;
+    margin-bottom: 0.5rem;
+}
+
+
+.categoryLink.current {
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    border: 1px solid;
+    border-radius: 2rem;
+    -webkit-text-decoration: none;
+}
