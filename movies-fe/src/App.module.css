@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,300;1,500&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -51,22 +53,6 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.single {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  align-items: flex-start;
-  height: 100%;
-  width: 100%;
-  user-select: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.hide {
-  display: none;
 }
 
 .myBtn {

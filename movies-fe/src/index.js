@@ -5,7 +5,6 @@ import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import {
     createBrowserRouter,
-    Outlet,
     RouterProvider,
 } from "react-router-dom";
 import ErrorPage from './ErrorPage';
@@ -13,6 +12,9 @@ import LoginPage from './LoginPage';
 import SearchResults from './SearchResults';
 import MovieFullPage from './MovieFullPage';
 import PopularMovies from './PopularMovies';
+import MoviesByGenre from './MoviesByGenre';
+import Discover from './Discover';
+
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:8080/graphql',
@@ -52,6 +54,16 @@ const router = createBrowserRouter([
             {
                 path: "/movie/:movieId",
                 element: <MovieFullPage />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "/genre/:genreId",
+                element: <MoviesByGenre />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "/discover",
+                element: <Discover />,
                 errorElement: <ErrorPage />
             }
         ],

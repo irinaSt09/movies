@@ -1,37 +1,74 @@
-import { useState } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
 
-    // const [genres, setGenres] = useState([movie]); //gql query
-    const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState(3);
+    const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState();
 
-    const genreTopRated = {
-        id: 1,
-        name: "Top Rated"
-    };
+    const navigate = useNavigate();
 
-    const genrePopularity = {
-        id: 2,
-        name: "Popularity"
-    };
+    const GET_ALL_GENRES = gql`
+    {
+        getAllGenres{
+          id,
+          name
+        }
+      }
+	`;
 
-    const genreSomethingElse = {
-        id: 3,
-        name: "Something Else"
-    };
+    const { loading, error, data } = useQuery(GET_ALL_GENRES);
+    const [genres, setGenres] = useState();
 
-    // ...get more from graphql query
+    const discoverOptions = [
+        {
+            id: 1,
+            name: "Most Popular",
+            linkTo: "/discover?sortBy=popularity&orderBy=desc"
+        },
+        {
+            id: 2,
+            name: "Latest",
+            linkTo: "/discover?sortBy=release_date&orderBy=desc"
+        },
+        {
+            id: 3,
+            name: "Best Rating",
+            linkTo: "/discover?sortBy=rating&orderBy=desc"
+        }
+    ];
+    
+    useEffect(() => {
+        if (loading === false && data) {
+            setGenres(data.getAllGenres);
+        }
+    }, [loading, data]);
 
+    if (loading) return console.log('Loading...');
+    if (error) {
+        if (error?.networkError?.response?.status == 401) {
+            navigate("/login");
+        }
+        else {
+            console.log(error);
+        }
+    }
 
+    if (!genres) {
+        return;
+    }
 
-    const genres = [genreTopRated, genrePopularity, genreSomethingElse];
+    const handleDiscoverOptionClick = (event, option) => {
+        event.preventDefault();
+        setCurrentSelectedGenreId(option.id);
+        navigate(option.linkTo);
+    }
 
     const handleGenreFilterChange = (event, genreId) => {
         event.preventDefault();
         setCurrentSelectedGenreId(genreId);
-
-        //setMovies[filteredbyGenre]; //get filtered from graphql or filter on client
+        navigate(`/genre/${genreId}`);
     }
 
     return (
@@ -48,14 +85,26 @@ export default function Sidebar() {
                     </span>
                     <h2 className={styles.titleGenre}>Discover</h2>
                     {
+                        discoverOptions.map((option, index) => {
+                            return (
+                                <a
+                                    key={index}
+                                    className={`${styles.categoryLink} ${option.id == currentSelectedGenreId && styles.current}`}
+                                    onClick={e => handleDiscoverOptionClick(e, option)}
+                                >
+                                    <div className={styles.genre}>{option.name}</div>
+                                </a>
+                            );
+                        })
+                    }
+                    <h2 className={styles.titleGenre}>Genres</h2>
+                    {
                         genres.map((genre, index) => {
                             return (
                                 <a
                                     key={index}
                                     className={`${styles.categoryLink} ${genre.id == currentSelectedGenreId && styles.current}`}
-                                    href="#a"
                                     onClick={e => handleGenreFilterChange(e, genre.id)}
-                                // onclick="sortMovies('rating')" //genreId
                                 >
                                     <div className={styles.genre}>{genre.name}</div>
                                 </a>

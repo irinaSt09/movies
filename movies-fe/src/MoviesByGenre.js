@@ -3,17 +3,17 @@ import { gql, useQuery } from '@apollo/client';
 import { useNavigate, useParams } from "react-router-dom";
 import MoviesContainer from "./MoviesContainer";
 
-export default function SearchResults() {
+export default function MoviesByGenre() {
 
     const navigate = useNavigate();
 
-    const { searchText } = useParams("");
+    const { genreId } = useParams("");
     const [movies, setMovies] = useState([]);
 
 
-    const SEARCH_MOVIES_BY_TITLE = gql`
+    const SEARCH_MOVIES_BY_GENRE = gql`
 	{
-		searchMoviesByTitle(title: "${searchText}"){
+		discover(sortBy: POPULARITY_DESC, genres: ${genreId}){
 		  id,
 		  title,
 		  vote_average,
@@ -21,11 +21,11 @@ export default function SearchResults() {
 		}
 	}
 `;
-    const { loading, error, data } = useQuery(SEARCH_MOVIES_BY_TITLE);
+    const { loading, error, data } = useQuery(SEARCH_MOVIES_BY_GENRE);
 
     useEffect(() => {
         if (loading === false && data) {
-            setMovies(data.searchMoviesByTitle);
+            setMovies(data.discover);
         }
     }, [loading, data]);
 
