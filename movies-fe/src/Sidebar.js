@@ -132,6 +132,12 @@ export default function Sidebar() {
         //post creation of new watchlist
     }
 
+    const handleSignOut = () => {
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+        navigate("/login");
+    }
+
     return (
         <>
             <div className={styles.sidebar}>
@@ -144,8 +150,10 @@ export default function Sidebar() {
                             className={styles.logoImage}
                         />
                     </span>
-                    <p>Hi{username && `, ${username}`}!</p>
-                    <h2 className={styles.titleGenre}>Here are your watchlists</h2>
+                    <i title="Sign out" onClick={() => handleSignOut()} className={`fa fa-sign-out ${styles.myBtn}`} aria-hidden="true"></i>
+                    <p>Hi{username && `, ${username}`}!
+                    </p>
+                    <h2 className={styles.titleGenre}>Your watchlists</h2>
                     {
                         watchlists?.map((watchlist, index) => {
                             return (

@@ -21,6 +21,9 @@ export default function Watchlist() {
             });
             const data = await response.json();
             const watchlist = data.find(watchlist => watchlist?.id == watchlistId);
+            if(!watchlist) {
+                alert("This watchlist cannot be accessed");
+            }
             setWatchlist(watchlist);
         };
 
