@@ -1,5 +1,6 @@
 package com.movies.controller;
 
+import com.movies.controller.entity.AddMovieToWatchlistRequest;
 import com.movies.controller.entity.CreateWatchlistRequest;
 import com.movies.controller.entity.WatchlistDTO;
 import com.movies.entity.Watchlist;
@@ -33,14 +34,19 @@ public class WatchlistController {
         return ResponseEntity.ok(id);
     }
 
-    @PutMapping("")
-    public void modify(@RequestBody WatchlistDTO watchlist) {
-        watchlistService.modifyWatchlist(watchlist);
+    @PutMapping("/{id}")
+    public WatchlistDTO modify(@RequestBody AddMovieToWatchlistRequest addMovieToWatchlistRequest, @PathVariable Integer id) {
+        return toDTO(watchlistService.modifyWatchlist(id, addMovieToWatchlistRequest.movieID(), addMovieToWatchlistRequest.name()));
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         watchlistService.delete(id);
+    }
+
+    @DeleteMapping("/{watchlistID}/{movieID}")
+    public WatchlistDTO deleteMovie(@PathVariable Integer movieID, @PathVariable Integer watchlistID) {
+        return toDTO(watchlistService.deleteMovieFromWatchlist(watchlistID, movieID));
     }
 
     private WatchlistDTO toDTO(Watchlist watchlist) {

@@ -36,17 +36,24 @@ public class WatchlistService {
         return watchlistRepository.save(watchlist).getId();
     }
 
-    public Watchlist modifyWatchlist(WatchlistDTO watchlistDTO) {
-        var watchlist = new Watchlist();
-        watchlist.setId(watchlistDTO.getId());
-        watchlist.setMovies(watchlistDTO.getMovies());
-        watchlist.setDateCreated(watchlistDTO.getDateCreated());
-        watchlist.setName(watchlistDTO.getName());
-        watchlist.setUser(userRepository.findById(watchlistDTO.getUser()).get());
+    public Watchlist modifyWatchlist(Integer watchlistID, Integer movieID, String name) {
+        var watchlist = watchlistRepository.findById(watchlistID).get();
+        if (movieID != null) {
+            watchlist.getMovies().add(movieID);
+        }
+        if (name != null) {
+            watchlist.setName(name);
+        }
         return watchlistRepository.save(watchlist);
     }
 
     public void delete(Integer id) {
         watchlistRepository.deleteById(id);
+    }
+
+    public Watchlist deleteMovieFromWatchlist(Integer watchlistID, Integer movieID) {
+        var watchlist = watchlistRepository.findById(watchlistID).get();
+        watchlist.getMovies().remove(movieID);
+        return watchlistRepository.save(watchlist);
     }
 }
