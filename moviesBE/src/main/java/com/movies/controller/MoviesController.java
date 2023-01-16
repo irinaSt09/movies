@@ -30,8 +30,8 @@ public class MoviesController {
     }
 
     @QueryMapping
-    public MovieDb getMovie(@Argument Integer id) {
-        return movieService.getMovie(id);
+    public List<MovieDb> getMovies(@Argument List<Integer> ids) {
+        return movieService.getMovies(ids);
     }
 
     @QueryMapping

@@ -1,7 +1,7 @@
 type Query {
     popularMovies: [MovieDb]
     allPopularMovies: [MovieDb]
-    getMovie(id: Int): MovieDb
+    getMovies(ids: [Int]): [MovieDb]
     searchMoviesByTitle(title: String): [MovieDb]
     getAllGenres: [Genres]
     discover(sortBy: Sort!, minimumRatingCount: Int, genres: [Int], year: Int, includeAdult: Boolean): [MovieDb]

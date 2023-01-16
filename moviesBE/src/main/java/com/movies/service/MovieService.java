@@ -50,20 +50,9 @@ public class MovieService {
         return cacheAll(list.stream().map(IdElement::getId).collect(Collectors.toList()));
     }
 
-    public MovieDb getMovie(Integer id) {
-        var cached = cachedMovieRepository.findById(id);
-        if (cached.isPresent()) {
-            try {
-                return om.readValue(cached.get().getMovie(), MovieDb.class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        var apiMovie = tmdbApi.getMovies().getMovie(id, LANG);
-        cache(apiMovie);
-
-        return apiMovie;
-        }
+    public List<MovieDb> getMovies(List<Integer> ids) {
+        return cacheAll(ids);
+    }
 
     public List<Genre> getAllGenres() {
         return tmdbApi.getGenre().getGenreList(LANG);
