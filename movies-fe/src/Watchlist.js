@@ -1,3 +1,4 @@
+import { gql, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MoviesContainer from "./MoviesContainer";
@@ -7,8 +8,7 @@ export default function Watchlist() {
     const navigate = useNavigate();
     const { watchlistId } = useParams();
 
-    const [watchlist, setWatchlist] = useState();
-    const [triggerRefresh, setTriggerRefresh] = useState(false);
+    const [watchlist, setWatchlist] = useState({movies: []});
     
     useEffect(() => {
         const fetchData = async () => {
@@ -28,8 +28,47 @@ export default function Watchlist() {
         };
 
         fetchData();
-    }, [triggerRefresh]);
+    }, []);
 
+    const GET_MOVIES = gql`
+		{
+			getMovies(ids: [${watchlist?.movies.join(", ")}]){
+				id,
+				title,
+				voteAverage,
+				posterPath
+			}
+		}
+	`;
+
+    const { loading, error, data } = useQuery(GET_MOVIES);
+
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        if (loading === false && data) {
+            setMovies(data.getMovies);
+        }
+    }, [loading, data, watchlist]);
+
+    if (loading) return console.log('Loading...');
+    if (error) {
+        if (error?.networkError?.response?.status == 401) {
+            navigate("/login");
+        }
+        else {
+            console.log(error);
+        }
+    }
+
+    return (
+        <>
+            <MoviesContainer moviesType={"Popular"} movies={movies} isInWatchlistView={true} />
+        </>
+    );
+    
+    
+    
     // if (loading) return console.log('Loading...');
     // if (error) {
     //     if (error?.networkError?.response?.status == 401) {

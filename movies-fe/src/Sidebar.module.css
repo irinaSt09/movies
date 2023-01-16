@@ -92,6 +92,11 @@
     margin: 0 0 1rem 1rem;
 }
 
+.selectedWatchlist .genre {
+    background-color: #a0defd;
+    border-color: #3f81ff;
+}
+
 .titleGenre:not(:first-child) {
     margin-top: 3rem;
 }

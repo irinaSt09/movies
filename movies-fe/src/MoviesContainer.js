@@ -1,7 +1,7 @@
 import MovieComponent from "./MovieComponent";
 import styles from "./MoviesContainer.module.css";
 
-export default function MoviesContainer({ movies, moviesType }) {
+export default function MoviesContainer({ movies, moviesType, isInWatchlistView = false }) {
     return (
         <>
             <div className={styles.content}>
@@ -14,7 +14,7 @@ export default function MoviesContainer({ movies, moviesType }) {
                         {
                             movies?.map((movie, index) => {
                                 if (!movie) return;
-                                return <MovieComponent key={index} props={movie} />
+                                return <MovieComponent key={index} props={movie} isInWatchlistView={isInWatchlistView}  />
                             })
                         }
                     </div>

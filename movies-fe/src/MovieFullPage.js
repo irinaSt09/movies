@@ -10,7 +10,7 @@ export default function MovieFullPage() {
 
     const GET_MOVIE_BY_ID = gql`
 		{
-			getMovie(id: ${movieId}){
+			getMovie(ids: [${movieId}]){
               adult
               backdropPath
               belongsToCollection

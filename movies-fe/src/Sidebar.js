@@ -1,11 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { WatchlistContext } from "./App";
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar() {
+export default function Sidebar({onChangeSelectedWatchlistId}) {
 
     const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState();
+    const selectedWatchlistId = useContext(WatchlistContext);
 
     const navigate = useNavigate();
 
@@ -23,10 +25,6 @@ export default function Sidebar() {
     const username = localStorage.getItem("username");
     const [watchlists, setWatchlists] = useState([]);
     const [triggerRefresh, setTriggerRefresh] = useState(false);
-
-    const createWatchlistButton = {
-        name: "Create Watchlist"
-    };
 
     const discoverOptions = [
         {
@@ -63,6 +61,7 @@ export default function Sidebar() {
             });
             const data = await response.json();
             setWatchlists(data);
+            onChangeSelectedWatchlistId && onChangeSelectedWatchlistId((data && data[0]?.id) || 1);
         };
 
         fetchData();
@@ -96,7 +95,13 @@ export default function Sidebar() {
 
     const handleWatchlistClick = (event, watchlistId) => {
         event.preventDefault();
-        console.log("open watchlist id " + watchlistId);
+        if(event.detail == 1) {
+            console.log(watchlistId)
+            onChangeSelectedWatchlistId && onChangeSelectedWatchlistId(watchlistId);
+        }
+        if(event.detail == 2) {
+            navigate(`/watchlist/${watchlistId}`);
+        }
     }
 
     const handleAddWatchlist = (event) => {
@@ -159,7 +164,7 @@ export default function Sidebar() {
                             return (
                                 <a
                                     key={index}
-                                    className={`${styles.categoryLink}`}
+                                    className={`${styles.categoryLink} ${watchlist.id == selectedWatchlistId && styles.selectedWatchlist}`}
                                     onClick={e => handleWatchlistClick(e, watchlist.id)}
                                 >
                                     <div className={styles.genre}>{watchlist.name}</div>
