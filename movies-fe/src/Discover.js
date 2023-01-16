@@ -32,8 +32,8 @@ export default function Discover() {
 		discover(sortBy: ${sortBy}_${orderBy}){
 		  id,
 		  title,
-		  vote_average,
-		  poster_path
+		  voteAverage,
+		  posterPath
 		}
 	}
 `;

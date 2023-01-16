@@ -14,6 +14,7 @@ import MovieFullPage from './MovieFullPage';
 import PopularMovies from './PopularMovies';
 import MoviesByGenre from './MoviesByGenre';
 import Discover from './Discover';
+import Watchlist from './Watchlist';
 
 
 const httpLink = createHttpLink({
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
                 errorElement: <ErrorPage />
             },
             {
+                path: "/search",
+                element: <SearchResults />,
+                errorElement: <ErrorPage />
+            },
+            {
                 path: "/search/:searchText",
                 element: <SearchResults />,
                 errorElement: <ErrorPage />
@@ -64,6 +70,11 @@ const router = createBrowserRouter([
             {
                 path: "/discover",
                 element: <Discover />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "/watchlist/:watchlistId",
+                element: <Watchlist />,
                 errorElement: <ErrorPage />
             }
         ],

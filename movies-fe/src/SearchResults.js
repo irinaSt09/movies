@@ -7,17 +7,17 @@ export default function SearchResults() {
 
     const navigate = useNavigate();
 
-    const { searchText } = useParams("");
+    const { searchText } = useParams();
     const [movies, setMovies] = useState([]);
 
 
     const SEARCH_MOVIES_BY_TITLE = gql`
 	{
-		searchMoviesByTitle(title: "${searchText}"){
+		searchMoviesByTitle(title: "${searchText || " "}"){
 		  id,
 		  title,
-		  vote_average,
-		  poster_path
+		  voteAverage,
+		  posterPath
 		}
 	}
 `;

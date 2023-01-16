@@ -16,8 +16,8 @@ export default function MoviesByGenre() {
 		discover(sortBy: POPULARITY_DESC, genres: ${genreId}){
 		  id,
 		  title,
-		  vote_average,
-		  poster_path
+		  voteAverage,
+		  posterPath
 		}
 	}
 `;

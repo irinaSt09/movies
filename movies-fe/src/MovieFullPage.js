@@ -12,39 +12,39 @@ export default function MovieFullPage() {
 		{
 			getMovie(id: ${movieId}){
               adult
-              backdrop_path
-              belongs_to_collection
+              backdropPath
+              belongsToCollection
               budget
               homepage
               id
-              imdb_id
-              original_language
-              original_title
+              imdbId
+              originalLanguage
+              originalTitle
               overview
               popularity
-              poster_path
-              release_date
+              posterPath
+              releaseDate
               revenue
               runtime
               status
               tagline
               title
               video
-              vote_average
-              vote_count
-              spoken_languages {
-                iso_639_1
+              voteAverage
+              voteCount
+              spokenLanguages {
+                isoCode
                 name
               }
-              production_countries {
-                iso_3166_1
+              productionCountries {
+                isoCode
                 name
               }
-              production_companies {
+              productionCompanies {
                 id
-                logo_path
+                logoPath
                 name
-                origin_country
+                originCountry
               }
               genres {
                 id
@@ -87,7 +87,7 @@ export default function MovieFullPage() {
                                 <div className={styles.movieInner}>
                                     <div className={styles.movieContent}>
                                         <div className={styles.moviePoster}>
-                                            <img className={styles.movieImg} src={movie.poster_path || "https://www.lexingtonvenue.com/media/poster-placeholder.jpg"} />
+                                            <img className={styles.movieImg} src={(movie.posterPath && `https://image.tmdb.org/t/p/w370_and_h556_bestv2/${movie.posterPath}`) || "https://www.lexingtonvenue.com/media/poster-placeholder.jpg"} />
                                         </div>
                                         <div className={styles.movieData}>
                                             <div className={styles.movieInfo}>
@@ -97,7 +97,7 @@ export default function MovieFullPage() {
                                                 </div>
                                                 <div className={styles.movieSubdata}>
                                                     <div className={styles.movieLeft}>
-                                                        <p className={styles.movieStars}><i className="fa fa-star" aria-hidden />&nbsp;{movie.vote_average || "N/A"}</p>
+                                                        <p className={styles.movieStars}><i className="fa fa-star" aria-hidden />&nbsp;{movie.voteAverage || "N/A"}</p>
                                                     </div>
                                                     <div className={styles.movieRight}>{movie.releaseDate && `${movie.releaseDate}`}{movie.releaseDate && movie.runtime && " / "}{movie.runtime && `${movie.runtime} min`}</div>
                                                 </div>

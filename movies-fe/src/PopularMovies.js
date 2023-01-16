@@ -12,8 +12,8 @@ export default function PopularMovies() {
 			popularMovies{
 				id,
 				title,
-				vote_average,
-				poster_path
+				voteAverage,
+				posterPath
 			}
 		}
 	`;

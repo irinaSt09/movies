@@ -19,7 +19,14 @@ export default function Sidebar() {
 	`;
 
     const { loading, error, data } = useQuery(GET_ALL_GENRES);
-    const [genres, setGenres] = useState();
+    const [genres, setGenres] = useState([]);
+    const username = localStorage.getItem("username");
+    const [watchlists, setWatchlists] = useState([]);
+    const [triggerRefresh, setTriggerRefresh] = useState(false);
+
+    const createWatchlistButton = {
+        name: "Create Watchlist"
+    };
 
     const discoverOptions = [
         {
@@ -38,12 +45,28 @@ export default function Sidebar() {
             linkTo: "/discover?sortBy=rating&orderBy=desc"
         }
     ];
-    
+
     useEffect(() => {
         if (loading === false && data) {
             setGenres(data.getAllGenres);
         }
     }, [loading, data]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("http://localhost:8080/watchlist", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Basic ${btoa(`${username}:${localStorage.getItem("password")}`)}`
+                }
+            });
+            const data = await response.json();
+            setWatchlists(data);
+        };
+
+        fetchData();
+    }, [triggerRefresh]);
 
     if (loading) return console.log('Loading...');
     if (error) {
@@ -71,6 +94,44 @@ export default function Sidebar() {
         navigate(`/genre/${genreId}`);
     }
 
+    const handleWatchlistClick = (event, watchlistId) => {
+        event.preventDefault();
+        console.log("open watchlist id " + watchlistId);
+    }
+
+    const handleAddWatchlist = (event) => {
+        event.preventDefault();
+        const watchlistName = document.querySelector("#watchlistName").value;
+        if (!watchlistName || watchlistName.length == 0) {
+            alert("Watchlist name cannot be empty");
+            return;
+        }
+
+        fetch("http://localhost:8080/watchlist", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${btoa(`${username}:${localStorage.getItem("password")}`)}`
+            },
+            body: JSON.stringify({ name: watchlistName })
+        }).then(res => {
+            console.log(res);
+            if (res.status == 200) {
+                setTriggerRefresh(!triggerRefresh);
+            }
+            else if (res.status == 401) {
+                navigate("/login");
+            }
+            else {
+                console.log("Error with signup");
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+
+        //post creation of new watchlist
+    }
+
     return (
         <>
             <div className={styles.sidebar}>
@@ -83,6 +144,25 @@ export default function Sidebar() {
                             className={styles.logoImage}
                         />
                     </span>
+                    <p>Hi{username && `, ${username}`}!</p>
+                    <h2 className={styles.titleGenre}>Here are your watchlists</h2>
+                    {
+                        watchlists?.map((watchlist, index) => {
+                            return (
+                                <a
+                                    key={index}
+                                    className={`${styles.categoryLink}`}
+                                    onClick={e => handleWatchlistClick(e, watchlist.id)}
+                                >
+                                    <div className={styles.genre}>{watchlist.name}</div>
+                                </a>
+                            );
+                        })
+                    }
+                    <form className={styles.addWatchlistForm} onSubmit={e => handleAddWatchlist(e)}>
+                        <button type="submit" className={styles.addWatchlistButton}><i className="fa fa-plus"></i></button>
+                        <input id="watchlistName" placeholder="&nbsp;Add a watchlist..." className={styles.addWatchlistInput} />
+                    </form>
                     <h2 className={styles.titleGenre}>Discover</h2>
                     {
                         discoverOptions.map((option, index) => {
