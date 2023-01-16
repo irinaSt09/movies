@@ -8,11 +8,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password:
     url: jdbc:mysql://localhost:3306/movies?createDatabaseIfNotExist=true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
