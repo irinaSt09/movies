@@ -58,9 +58,9 @@ export default function MovieFullPage() {
     const [movie, setMovie] = useState();
 
     useEffect(() => {
-        window.scrollTo({top: 0, left: 0});
+        window.scrollTo({ top: 0, left: 0 });
     }, []);
-    
+
     useEffect(() => {
         if (loading === false && data) {
             setMovie(data.getMovies[0]);
@@ -125,16 +125,18 @@ export default function MovieFullPage() {
                                                 <p className={styles.movieDescription}>{movie.overview}</p>
                                             </div>
                                             {
-                                                movie.budget != 0 &&
+                                                movie.budget != 0 ?
                                                 <h3 className={styles.movieFields}>
                                                     Budget - ${movie.budget?.toLocaleString()}
                                                 </h3>
+                                                : null
                                             }
                                             {
-                                                movie.revenue != 0 &&
+                                                movie.revenue != 0 ?
                                                 <h3 className={styles.movieFields}>
                                                     Revenue - ${movie.revenue?.toLocaleString()}
                                                 </h3>
+                                                : null
                                             }
                                             <i title="Go back" onClick={(e) => handleGoBack(e)} className={`fas fa-chevron-left ${styles.myBtn}`}></i>
                                         </div>

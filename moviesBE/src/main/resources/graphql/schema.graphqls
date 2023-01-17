@@ -33,7 +33,7 @@ type MovieDb
     popularity: Float
     posterPath: String
     releaseDate: String
-    revenue: Int
+    revenue: Float
     runtime: Int
     status: String
     tagline: String
