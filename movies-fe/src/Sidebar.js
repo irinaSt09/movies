@@ -1,14 +1,17 @@
 import { gql, useQuery } from "@apollo/client";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { WatchlistContext } from "./App";
+import { WatchlistContext } from "./WatchlistContext";
 import styles from "./Sidebar.module.css";
 
-export default function Sidebar({onChangeSelectedWatchlistId}) {
+export default function Sidebar() {
 
     const [currentSelectedGenreId, setCurrentSelectedGenreId] = useState();
-    const selectedWatchlistId = useContext(WatchlistContext);
+    const state = useContext(WatchlistContext);
 
+    const selectedWatchlistId = state.watchlistId;
+
+    
     const navigate = useNavigate();
 
     const GET_ALL_GENRES = gql`
@@ -19,6 +22,8 @@ export default function Sidebar({onChangeSelectedWatchlistId}) {
         }
       }
 	`;
+
+    //add button for delete watchlist, maybe rename
 
     const { loading, error, data } = useQuery(GET_ALL_GENRES);
     const [genres, setGenres] = useState([]);
@@ -61,7 +66,6 @@ export default function Sidebar({onChangeSelectedWatchlistId}) {
             });
             const data = await response.json();
             setWatchlists(data);
-            onChangeSelectedWatchlistId && onChangeSelectedWatchlistId((data && data[0]?.id) || 1);
         };
 
         fetchData();
@@ -97,10 +101,11 @@ export default function Sidebar({onChangeSelectedWatchlistId}) {
         event.preventDefault();
         if(event.detail == 1) {
             console.log(watchlistId)
-            onChangeSelectedWatchlistId && onChangeSelectedWatchlistId(watchlistId);
+            state.setWatchlistId(watchlistId);
         }
         if(event.detail == 2) {
             navigate(`/watchlist/${watchlistId}`);
+            navigate(0);
         }
     }
 

@@ -1,54 +1,64 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { WatchlistContext } from "./App";
+import { Link, useNavigate } from "react-router-dom";
+import { WatchlistContext } from "./WatchlistContext";
 import styles from "./MovieComponent.module.css";
 
-export default function MovieComponent({ props: movie, isInWatchlistView }) {
+export default function MovieComponent({ props: movie, isInWatchlistView, triggerRefresh }) {
 
-    const selectedWatchlistId = useContext(WatchlistContext);
+    const context = useContext(WatchlistContext);
+    const selectedWatchlistId = context.watchlistId;
+
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleAddToWatchlistClick = (event, movieId) => {
         event.preventDefault();
+        if (!selectedWatchlistId) {
+            alert("No watchlist is selected.");
+            return;
+        }
+
         if (isLoading) {
             return;
         }
 
-        // setIsLoading(true);
-        // fetch("http://localhost:8080/watchlist", {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
-        //     }
-        // }).then(res => {
-        //     const data = res.json();
-        //     const watchlist = data.find(watchlist => watchlist?.id == selectedWatchlistId);
-        //     watchlist.movies = [...watchlist.movies, movieId];
-
-        //     if (!watchlist) {
-        //         alert("This watchlist cannot be accessed");
-        //     }
-
-        //     fetch("http://localhost:8080/watchlist", {
-        //         method: "PUT",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
-        //         },
-        //         body: JSON.stringify(watchlist)
-        //     }).then(res => {
-        //         console.log(res);
-        //     }).catch(err => console.log(err));
-
-        // }).catch(err => console.log(err));
+        setIsLoading(true);
+        fetch(`http://localhost:8080/watchlist/${selectedWatchlistId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
+            },
+            body: JSON.stringify({movie_id: movieId})
+        }).then(res => {
+            console.log(res);
+            setIsLoading(false);
+        }).catch(err => console.log(err));
     }
 
     const handleRemoveFromWatchlistClick = (event, movieId) => {
         event.preventDefault();
+        if (!selectedWatchlistId) {
+            alert("No watchlist is selected.");
+            return;
+        }
+
         if (isLoading) {
             return;
         }
+
+        setIsLoading(true);
+        fetch(`http://localhost:8080/watchlist/${selectedWatchlistId}/${movieId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
+            },
+        }).then(res => {
+            console.log(res);
+            navigate(0);
+        }).catch(err => console.log(err))
+        .finally(() => setIsLoading(false));
     }
 
 

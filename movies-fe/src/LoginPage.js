@@ -94,8 +94,8 @@ export default function LoginPage() {
                 <div className={styles.form}>
                     <form className={styles.loginForm} onSubmit={e => handleSubmit(e)}>
                         <h2>{isLogin ? "Log into your existing account" : "Create new account"}</h2>
-                        <input type="text" required placeholder="Username" autocomplete="off" onChange={e => handleUsernameChange(e)} value={username} />
-                        <input type={showPassword ? "text" : "password"} required placeholder="Password" autocomplete="off" onChange={e => handlePasswordChange(e)} value={password} />
+                        <input type="text" required placeholder="Username" autoComplete="off" onChange={e => handleUsernameChange(e)} value={username} />
+                        <input type={showPassword ? "text" : "password"} required placeholder="Password" autoComplete="off" onChange={e => handlePasswordChange(e)} value={password} />
                         <i className={showPassword ? "fa fa-eye" : "fas fa-eye-slash"} onClick={toggleShowPassword} />
                         {username.length > 0 && !isUsernameValid && <p>Username should be at least {USERNAME_MIN_LENGTH} characters long</p>}
                         {password.length > 0 && !isPasswordValid && <p>Password should be at least {PASSWORD_MIN_LENGTH} characters long</p>}

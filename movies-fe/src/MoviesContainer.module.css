@@ -4,10 +4,10 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    -webkit-box-align: center;
+    display: flex;
+    margin-top: 60px;
+    justify-content: start;
     align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
     padding: 6rem 4rem;
 }
 

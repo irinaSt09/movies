@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { WatchlistContext } from "./WatchlistContext";
 import MoviesContainer from "./MoviesContainer";
 
 export default function Watchlist() {
@@ -8,23 +9,39 @@ export default function Watchlist() {
     const navigate = useNavigate();
     const { watchlistId } = useParams();
 
-    const [watchlist, setWatchlist] = useState({movies: []});
-    
+    const [watchlist, setWatchlist] = useState({ movies: [] });
+    const [isLoading, setIsLoading] = useState(false);
+
+    const state = useContext(WatchlistContext);
+
     useEffect(() => {
+        state.setWatchlistId(watchlistId);
+    }, []);
+
+    useEffect(() => {
+        setIsLoading(true);
         const fetchData = async () => {
-            const response = await fetch("http://localhost:8080/watchlist", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
+            try {
+                const response = await fetch("http://localhost:8080/watchlist", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Basic ${btoa(`${localStorage.getItem("username")}:${localStorage.getItem("password")}`)}`
+                    }
+                });
+                const data = await response.json();
+                const watchlist = data.find(watchlist => watchlist?.id == watchlistId);
+                if (!watchlist) {
+                    alert("This watchlist cannot be accessed");
                 }
-            });
-            const data = await response.json();
-            const watchlist = data.find(watchlist => watchlist?.id == watchlistId);
-            if(!watchlist) {
-                alert("This watchlist cannot be accessed");
+                setWatchlist(watchlist);
             }
-            setWatchlist(watchlist);
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                setIsLoading(false);
+            }
         };
 
         fetchData();
@@ -51,7 +68,7 @@ export default function Watchlist() {
         }
     }, [loading, data, watchlist]);
 
-    if (loading) return console.log('Loading...');
+    if (loading || isLoading) return console.log('Loading...');
     if (error) {
         if (error?.networkError?.response?.status == 401) {
             navigate("/login");
@@ -64,24 +81,6 @@ export default function Watchlist() {
     return (
         <>
             <MoviesContainer moviesType={"Popular"} movies={movies} isInWatchlistView={true} />
-        </>
-    );
-    
-    
-    
-    // if (loading) return console.log('Loading...');
-    // if (error) {
-    //     if (error?.networkError?.response?.status == 401) {
-    //         navigate("/login");
-    //     }
-    //     else {
-    //         console.log(error);
-    //     }
-    // }
-
-    return (
-        <>
-            <MoviesContainer moviesType={"Popular"} movies={[]} />
         </>
     );
 }

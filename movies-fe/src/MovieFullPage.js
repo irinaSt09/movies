@@ -10,7 +10,7 @@ export default function MovieFullPage() {
 
     const GET_MOVIE_BY_ID = gql`
 		{
-			getMovie(ids: [${movieId}]){
+			getMovies(ids: [${movieId}]){
               adult
               backdropPath
               belongsToCollection
@@ -58,10 +58,18 @@ export default function MovieFullPage() {
     const [movie, setMovie] = useState();
 
     useEffect(() => {
+        window.scrollTo({top: 0, left: 0});
+    }, []);
+    
+    useEffect(() => {
         if (loading === false && data) {
-            setMovie(data.getMovie);
+            setMovie(data.getMovies[0]);
         }
     }, [loading, data]);
+
+    const handleGoBack = (event) => {
+        navigate(-1);
+    }
 
     if (loading) return console.log('Loading...');
     if (error) {
@@ -117,17 +125,18 @@ export default function MovieFullPage() {
                                                 <p className={styles.movieDescription}>{movie.overview}</p>
                                             </div>
                                             {
-                                                movie.budget &&
+                                                movie.budget != 0 &&
                                                 <h3 className={styles.movieFields}>
                                                     Budget - ${movie.budget?.toLocaleString()}
                                                 </h3>
                                             }
                                             {
-                                                movie.revenue &&
+                                                movie.revenue != 0 &&
                                                 <h3 className={styles.movieFields}>
                                                     Revenue - ${movie.revenue?.toLocaleString()}
                                                 </h3>
                                             }
+                                            <i title="Go back" onClick={(e) => handleGoBack(e)} className={`fas fa-chevron-left ${styles.myBtn}`}></i>
                                         </div>
                                     </div>
                                 </div>
