@@ -29,7 +29,7 @@ export default function MoviesByGenre() {
         }
     }, [loading, data]);
 
-    if (loading) return console.log('Loading...');
+    if (loading) return <div>Loading...</div>;
     if (error) {
         if (error?.networkError?.response?.status == 401) {
             navigate("/login");
@@ -41,7 +41,7 @@ export default function MoviesByGenre() {
 
     return (
         <>
-            <MoviesContainer moviesType={"Popular"} movies={movies} />
+            <MoviesContainer movies={movies} />
         </>
     );
 }

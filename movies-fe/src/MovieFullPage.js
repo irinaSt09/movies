@@ -71,7 +71,7 @@ export default function MovieFullPage() {
         navigate(-1);
     }
 
-    if (loading) return console.log('Loading...');
+    if (loading) return <div>Loading...</div>;
     if (error) {
         if (error?.networkError?.response?.status == 401) {
             navigate("/login");

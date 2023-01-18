@@ -9,7 +9,7 @@ export default function Watchlist() {
     const navigate = useNavigate();
     const { watchlistId } = useParams();
 
-    const [watchlist, setWatchlist] = useState({ movies: [] });
+    const [watchlist, setWatchlist] = useState({ movies: [], name: "" });
     const [isLoading, setIsLoading] = useState(false);
 
     const state = useContext(WatchlistContext);
@@ -34,6 +34,7 @@ export default function Watchlist() {
                 if (!watchlist) {
                     alert("This watchlist cannot be accessed");
                 }
+                console.log(watchlist);
                 setWatchlist(watchlist);
             }
             catch (err) {
@@ -68,7 +69,7 @@ export default function Watchlist() {
         }
     }, [loading, data, watchlist]);
 
-    if (loading || isLoading) return console.log('Loading...');
+    if (loading || isLoading) return <div>Loading...</div>;
     if (error) {
         if (error?.networkError?.response?.status == 401) {
             navigate("/login");
@@ -80,7 +81,7 @@ export default function Watchlist() {
 
     return (
         <>
-            <MoviesContainer moviesType={"Popular"} movies={movies} isInWatchlistView={true} />
+            <MoviesContainer title={watchlist.name} movies={movies} isInWatchlistView={true} />
         </>
     );
 }

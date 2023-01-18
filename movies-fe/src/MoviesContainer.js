@@ -1,15 +1,14 @@
 import MovieComponent from "./MovieComponent";
 import styles from "./MoviesContainer.module.css";
 
-export default function MoviesContainer({ movies, moviesType, isInWatchlistView = false, triggerRefresh }) {
+export default function MoviesContainer({ movies, title, isInWatchlistView = false, triggerRefresh }) {
 
     return (
         <>
             <div className={styles.content}>
                 <div className={styles.innerContainer}>
                     <div className={styles.titles}>
-                        <h1>{moviesType}</h1>
-                        <h2>movies</h2>
+                        {title ? <h1>{title}</h1> : null}
                     </div>
                     <div className={styles.itemContainer}>
                         {

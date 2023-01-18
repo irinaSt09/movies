@@ -11,7 +11,7 @@ export default function Sidebar() {
 
     const selectedWatchlistId = state.watchlistId;
 
-    
+
     const navigate = useNavigate();
 
     const GET_ALL_GENRES = gql`
@@ -71,7 +71,7 @@ export default function Sidebar() {
         fetchData();
     }, [triggerRefresh]);
 
-    if (loading) return console.log('Loading...');
+    if (loading) return <div>Loading...</div>;
     if (error) {
         if (error?.networkError?.response?.status == 401) {
             navigate("/login");
@@ -99,14 +99,40 @@ export default function Sidebar() {
 
     const handleWatchlistClick = (event, watchlistId) => {
         event.preventDefault();
-        if(event.detail == 1) {
+        if (event.detail == 1) {
             console.log(watchlistId)
             state.setWatchlistId(watchlistId);
         }
-        if(event.detail == 2) {
+        if (event.detail == 2) {
             navigate(`/watchlist/${watchlistId}`);
             navigate(0);
         }
+    }
+
+    const handleDeleteWatchlistClick = (event, watchlistId) => {
+        event.preventDefault();
+
+        fetch(`http://localhost:8080/watchlist/${watchlistId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${btoa(`${username}:${localStorage.getItem("password")}`)}`
+            }
+        }).then(res => {
+            console.log(res);
+            if (res.status == 200) {
+                navigate("/");
+                navigate(0);
+            }
+            else if (res.status == 401) {
+                navigate("/login");
+            }
+            else {
+                console.log("Error deleting watchlist");
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     const handleAddWatchlist = (event) => {
@@ -139,7 +165,7 @@ export default function Sidebar() {
             console.log(err);
         });
 
-        //post creation of new watchlist
+        document.querySelector("#watchlistName").value = "";
     }
 
     const handleSignOut = () => {
@@ -172,7 +198,11 @@ export default function Sidebar() {
                                     className={`${styles.categoryLink} ${watchlist.id == selectedWatchlistId && styles.selectedWatchlist}`}
                                     onClick={e => handleWatchlistClick(e, watchlist.id)}
                                 >
-                                    <div className={styles.genre}>{watchlist.name}</div>
+                                    <div className={styles.genre}>{watchlist.name}
+                                        <span className={`${styles.deleteWatchlist}`} onClick={e => handleDeleteWatchlistClick(e, watchlist.id)}>
+                                            <i className={"fas fa-times-circle"}></i>
+                                        </span>
+                                    </div>
                                 </a>
                             );
                         })

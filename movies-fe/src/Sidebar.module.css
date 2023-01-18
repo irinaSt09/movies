@@ -80,6 +80,16 @@
     cursor: pointer;
     -webkit-transition: all 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
     transition: all 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    justify-content: space-between;
+}
+
+.deleteWatchlist {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #f35f5f;
+    -webkit-transition: color 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: color 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .genre:hover {
