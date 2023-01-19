@@ -8,7 +8,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password:
     url: jdbc:mysql://localhost:3306/movies?createDatabaseIfNotExist=true
   jpa:
     hibernate:
@@ -17,6 +17,17 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: 127.0.0.1:29092
+
+auto:
+  create:
+    topic:
+      enable: true
+
 app:
   cors:
     allowed-origins: http://localhost:3000
